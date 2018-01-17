@@ -143,7 +143,17 @@ const actors = [{
     'amount': 0
   }]
 }];
-
+//Step1
+deliveries.forEach(shipper => {
+  truckers.forEach(truckers => {
+    if(truckers.id==truckerId)
+    {
+      shipper.price=shipper.distance*truckers.pricePerKm+shipper.volume*truckers.pricePerVolume;
+    }
+    
+  });
+  
+});
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
