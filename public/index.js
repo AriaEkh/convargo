@@ -144,31 +144,51 @@ const actors = [{
   }]
 }];
 //Step1
-deliveries.forEach(shipper => {
+function newPrice()
+{
+  deliveries.forEach(shipper => {
   truckers.forEach(trucker => {
     if(trucker.id==shipper.truckerId)
-    {
+    { 
+      
+      if(shipper.volume>25 )
+      {
+        trucker.pricePerVolume=trucker.pricePerVolume*0.5;
+      }
+     
+      else if(shipper.volume>10 )
+      {
+        trucker.pricePerVolume=trucker.pricePerVolume*0.7;
+      }
+      else if(shipper.volume>5 )
+      {
+        trucker.pricePerVolume=trucker.pricePerVolume*0.9;
+      }
+     
       shipper.price=shipper.distance*trucker.pricePerKm+shipper.volume*trucker.pricePerVolume;
-     //Step 2
-    if(shipper.volume>=5 && shipper.volume <10)
-    {
-      trucker.pricePerVolume=trucker.pricePerVolume-trucker.pricePerVolume*0,1;
-    }
-    else if(shipper.volume>=10 && shipper.volume <25)
-    {
-      trucker.pricePerVolume=trucker.pricePerVolume-trucker.pricePerVolume*0,3;
-    }
-    else if(shipper.volume>=25 )
-    {
-      trucker.pricePerVolume=trucker.pricePerVolume-trucker.pricePerVolume*0,5;
-    }
     }
 
    
   });
   
 });
+}
+function newCommission()
+{ 
+ 
+  deliveries.forEach(shipper => {
+    var commission=shipper.price*0.7;
+    shipper.commission.insurance=commission*0.5;
+    shipper.commission.treasury=parseInt(shipper.distance/500);
+    shipper.commission.convargo=commission-shipper.commission.insurance-shipper.commission.treasury;
+    
 
+    
+  });
+}
+
+newPrice();
+newCommission();
 
 
 console.log(truckers);
