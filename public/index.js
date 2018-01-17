@@ -149,11 +149,28 @@ deliveries.forEach(shipper => {
     if(trucker.id==shipper.truckerId)
     {
       shipper.price=shipper.distance*trucker.pricePerKm+shipper.volume*trucker.pricePerVolume;
+     //Step 2
+    if(shipper.volume>=5 && shipper.volume <10)
+    {
+      trucker.pricePerVolume=trucker.pricePerVolume-trucker.pricePerVolume*0,1;
     }
-    
+    else if(shipper.volume>=10 && shipper.volume <25)
+    {
+      trucker.pricePerVolume=trucker.pricePerVolume-trucker.pricePerVolume*0,3;
+    }
+    else if(shipper.volume>=25 )
+    {
+      trucker.pricePerVolume=trucker.pricePerVolume-trucker.pricePerVolume*0,5;
+    }
+    }
+
+   
   });
   
 });
+
+
+
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
