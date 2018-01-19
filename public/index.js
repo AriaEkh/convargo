@@ -187,8 +187,16 @@ function newCommission()
   });
 }
 
+function newDeductible(deliverie){
+      deliverie.options.deductibleReduction = true;
+      deliverie.price = deliverie.price  + deliverie.volume;
+      return deliverie;
+  }
+ 
+
 newPrice();
 newCommission();
+newDeductible();
 
 
 console.log(truckers);
