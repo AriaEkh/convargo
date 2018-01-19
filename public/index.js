@@ -188,15 +188,44 @@ function newCommission()
 }
 
 function newDeductible(deliverie){
-      deliverie.options.deductibleReduction = true;
-      deliverie.price = deliverie.price  + deliverie.volume;
+  if(deliverie.options.deductibleReduction){
+            deliverie.price = deliverie.price + deliverie.volume;
+        }
       return deliverie;
   }
  
+function payActors(){
+ var deliverie;
+ actors.forEach(function(actor){
+    deliverie = deliveries.find(function(element){
+      if(element.id == actor.deliveryId){
+        return element;
+        }
+    });
+  actor.payment.find(function(element){
+    if(element.who == "shipper"){
+      element.amount = deliverie.price;
+      }
+      else if(element.who == "trucker"){
+          element.amount = deliverie.price * 0.7;
+      }
+      else if(element.who == "treasury"){
+          element.amount = deliverie.commission.treasury
+      }
+      else if(element.who == "insurance"){
+          element.amount = deliverie.commission.insurance;
+      }
+      else if(element.who == "convargo"){
+          element.amount = deliverie.commission.convargo;
+      }
+    });
+  });
+}
 
 newPrice();
 newCommission();
 newDeductible();
+payActors();
 
 
 console.log(truckers);
